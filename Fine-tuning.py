@@ -15,13 +15,13 @@ from sklearn import metrics
 train = io.loadmat('./data/train.mat')
 train = train['train']
 
-label_trian = io.loadmat('./data_processing/label_train.mat')
+label_trian = io.loadmat('./data/label_train.mat')
 label_trian = label_trian['label_train']
 
 test = io.loadmat('./data/test.mat')
 test = test['test']
 
-label_test = io.loadmat('./data_processing/label_test.mat')
+label_test = io.loadmat('./data/label_test.mat')
 label_test = label_test['label_test']
 
 ###
