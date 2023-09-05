@@ -12,7 +12,7 @@ import torch.optim as optim
 from sklearn import metrics
 
 
-##导入数据                      
+##load data                    
 ##
 train = io.loadmat('./data/train.mat')
 train = train['train']
@@ -40,7 +40,7 @@ test_loader = DataLoader(BatchData(test, label_test),
                          batch_size = 2000,
                          shuffle=False)
 
-##开始调用模型
+##load model
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 model = de_cnn().to(device)
 
@@ -64,7 +64,7 @@ for epoch in range(epoch_n):
             losses_test = []
             print("Epoch {}/{}".format(epoch+1,epoch_n))
             print("-"*10)    
-            # 开始训练                    
+            # training                   
             for i, (x,y) in enumerate(tqdm(train_loader)):
                 
 
@@ -76,7 +76,7 @@ for epoch in range(epoch_n):
                                                                                
                 outputs = model2(x)                                                                                                                                                                                                             
                 loss_train = criterion(outputs, y.squeeze())                                                                                                                                      
-                # 反向传播
+                # BP
                 optimizer.zero_grad()
                 loss_train.backward()
                 optimizer.step()

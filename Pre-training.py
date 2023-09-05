@@ -10,22 +10,24 @@ from net import de_cnn
 from tqdm import tqdm
 import torch.optim as optim
 import time
+
 ##
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 model = de_cnn().to(device)
-##导入数据            
+##load data            
 train = io.loadmat('./data/train.mat')
 train = train['train']
 
-train_s = io.loadmat('./data/train_ns.mat') ##nosie data (SNR=40db)
-train_s = train_s['train_ns']
+train_s = io.loadmat('./data/train_40ns.mat') ##nosie data (SNR=40db)
+train_s = train_s['train_40ns']
 
 test = io.loadmat('./data/test.mat')
 test = test['test']
 
-test_s = io.loadmat('./data/test_ns.mat')
-test_s = test_s['test_ns']
-# ##%%
+test_s = io.loadmat('./data/test_40ns.mat')
+test_s = test_s['test_40ns']
+
+###
 train = train.reshape(train.shape[0], 1, train.shape[1])
 train_s = train_s.reshape(train_s.shape[0], 1, train_s.shape[1])
 
@@ -46,7 +48,7 @@ print(optimizer)
 
 scheduler = optim.lr_scheduler.StepLR(optimizer, step_size=100, gamma=0.1)
 
-epoch_n = 10
+epoch_n = 2000
 criterion = nn.MSELoss()
 start = time.perf_counter() 
 
@@ -104,4 +106,4 @@ for epoch in range(epoch_n):
                                 
             print("test loss :", np.mean(losses_test))
    
-torch.save(model.state_dict(), './model/model40.pth')                                              
+torch.save(model.state_dict(), './model/model_40ns.pth')                                              

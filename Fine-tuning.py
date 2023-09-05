@@ -42,7 +42,7 @@ test_loader = DataLoader(BatchData(test, label_test),
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 model = de_cnn().to(device)
 
-model.load_state_dict(torch.load('./model/model40.pth')) ## nosie data (SNR = 40db)
+model.load_state_dict(torch.load('./model/model_40ns.pth')) ## nosie data (SNR = 40db)
 model2 = de_finetune(model)
 
 lr = 0.001
